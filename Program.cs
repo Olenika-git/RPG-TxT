@@ -6,12 +6,12 @@ namespace RPG_TxT
     {
         static void Main(string[] args)
         {
-            string nomHero, nomMonstre, classeHero, entry;
-            int pdvHero, attaqueHero, levelHero, pdvMonstre, attaqueMonstre, levelMonstre;
+
+            Random random = new Random();
+            string nomHero, classeHero, entry;
+            int pdvHero, attaqueHero = 0, levelHero, pdvMonstre, attaqueMonstre, levelMonstre;
             string[] inventaireHero, inventaireMonstre;
             bool inGame = true;
-            Random random = new Random();
-
             string titre = @"                               __    ___  ___           _____       _____ 
                               /__\  / _ \/ _ \         /__   \__  _/__   \
                              / \// / /_)/ /_\/  _____    / /\/\ \/ / / /\/
@@ -33,6 +33,13 @@ namespace RPG_TxT
                 classeHero = Console.ReadLine();
             }
 
+            //  Attribution Statistique Monstre
+            pdvMonstre = random.Next(60, 101);
+            levelMonstre = random.Next(1, 20);
+            attaqueMonstre = levelMonstre +100 / 3;
+
+            //  Attribution Statistique Hero
+            levelHero = 1;
             switch (classeHero)
             {
                 case "Guerrier":
@@ -69,13 +76,41 @@ namespace RPG_TxT
                     Console.WriteLine("Erreur : Switch Statistique Classe");
                     break;
             }
+            
             Console.WriteLine("\n\n\nTrès bien jeune : "+classeHero + "\nDes choses étranges se passent en ce moment dans le royaume !" +
                 "Les jours s'assombrisent, les tenebres rodent !\n\n\nEleonore, la fille de Gille à été enlevé il y a peu !" +
                 "\n\n\nTu dois la sauver !\n\n\n\nUne Embuscade ! Attention Derrière toi un monstre !");
 
             while (inGame)
             {
+                int attaqueMelee;
+                Console.WriteLine(pdvMonstre);
+                Console.Write("Le monstre loupe minablement son Embuscade !\n\n\nC'est à vous !\n\nQue voulez vous faire ?\n\n" +
+                    "N°1 - Attaque de Melee\nN°2 - Attaque Magique\nN°3 - Afficher l'inventaire\nN°4 - Affiche les Caractéristique du personnage" +
+                    "\n\nVotre choix : ");
 
+                entry = Console.ReadLine();
+
+                while(entry != "1" && entry!= "2" && entry != "3" && entry != "4")
+                {
+                    Console.Write("\n\nSaisie Incorrect, veuillez entrez le nombre correspondant à l'action !");
+                    entry = Console.ReadLine();
+                }
+
+                if(entry == "1")
+                {
+                    attaqueMelee = random.Next(attaqueHero, attaqueHero + 5);
+                    Console.WriteLine("Vous effectuer une attaque de melee." +
+                        "\nVous infligez : "+ attaqueMelee + " points de dégat");
+                    pdvMonstre -= attaqueMelee;
+                }
+                else if (entry == "2")
+                {
+                    attaqueMelee = random.Next(attaqueHero, attaqueHero + 5);
+                    Console.WriteLine("Vous effectuer une attaque magique." +
+                        "\nVous infligez : " + attaqueMelee + " points de dégat");
+                    pdvMonstre -= attaqueMelee;
+                }
             }
         }
     }
