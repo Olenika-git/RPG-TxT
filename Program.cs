@@ -14,6 +14,7 @@ namespace RPG_TxT
             //  Initialisation du Dictionaire et de notre Liste
             Dictionary<string, int> nomMonstre = new Dictionary<string, int>();
             List<string> Monstre = new List<string>();
+            List<string> HistoriqueAction = new List<string>();
 
             nomMonstre.Add("dragon", 150);
             nomMonstre.Add("gobelin", 78);
@@ -24,11 +25,6 @@ namespace RPG_TxT
             foreach (string key in nomMonstre.Keys)
             {
                 Monstre.Add(key);
-            }
-
-            for (int i = 0; i < Monstre.Count; i++)
-            {
-                Console.WriteLine(Monstre[i]);
             }
 
             string nomHero, classeHero, entry, nomMob = "";
@@ -56,6 +52,7 @@ namespace RPG_TxT
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (titre.Length / 2)) + "}", titre));
             Console.Write("Bienvenue, l'inconnu !\n\n\nJe suis Ergan, le mage du village.\nQuel est ton nom ?\n\nJe m'appelle : ");
             nomHero = Console.ReadLine();
+            HistoriqueAction.Add("Nom du Joueur : "+nomHero);
             Console.Write("\n\n\n\nEnchanté " + nomHero +" !\n\n\nA ton allure je dirait que tu est un Guerrier pas vrai ?" +
                 "\n\nListe des Classes :\n\nN°1 - Guerrier\nN°2 - Mage\nN°3 - Voleur\nN°4 - Barbare\nN°5 - Clerc\n\n\nJe suis un : ");
             classeHero = Console.ReadLine();
@@ -76,30 +73,35 @@ namespace RPG_TxT
                     {
                         pdvHero = 140;
                         attaqueHero = 10;
+                        HistoriqueAction.Add("Le joueur à choisit la Classe Guerrier");
                         break;
                     }
                 case "Mage":
                     {
                         pdvHero = 40;
                         attaqueHero = 60;
+                        HistoriqueAction.Add("Le joueur à choisit la Classe Mage");
                         break;
                     }
                 case "Voleur":
                     {
                         pdvHero = 70;
                         attaqueHero = 30;
+                        HistoriqueAction.Add("Le joueur à choisit la Classe Voleur");
                         break;
                     }
                 case "Barbare":
                     {
                         pdvHero = 80;
                         attaqueHero = 20;
+                        HistoriqueAction.Add("Le joueur à choisit la Classe Barbare");
                         break;
                     }
                 case "Clerc":
                     {
                         pdvHero = 90;
                         attaqueHero = 5;
+                        HistoriqueAction.Add("Le joueur à choisit la Classe Clerc");
                         break;
                     }
                 default:
@@ -116,7 +118,7 @@ namespace RPG_TxT
             {
                 //  Attribution Statistique Monstre de Base
                 
-                int nbMonstre = random.Next(0, 5);
+                int nbMonstre = random.Next(1, 5);
                 switch (nbMonstre)
                 {
                     case 1:
@@ -146,6 +148,7 @@ namespace RPG_TxT
                 levelMonstre = random.Next(1, 20);
                 attaqueMonstre = levelMonstre + 100 / 3;
                 Console.WriteLine("\n\n\nUn " + nomMob + " Apparait !\nPoints de Vie : " + pdvMonstre);
+                Console.WriteLine("VOICI LE CHIFFRE "+ nbMonstre);
 
                 while (pdvMonstre > 0 && inGame)
                 {
@@ -171,7 +174,7 @@ namespace RPG_TxT
                             Console.WriteLine("\n\nVous effectuer une attaque de melee." +
                                 "\nVous infligez : " + attaqueMelee + " points de dégat");
                             pdvMonstre -= attaqueMelee;
-                            Console.WriteLine(nbMonstre + " lAAAAAAAAAAAAAA");
+                            HistoriqueAction.Add("Le joueur à attaquer : " +nomMob+" Pour " + attaqueMelee +" pts de dégats.");
                             break;
 
                         case "2":
@@ -179,22 +182,30 @@ namespace RPG_TxT
                             Console.WriteLine("\n\nVous effectuer une attaque magique." +
                                 "\nVous infligez : " + attaqueMagique + " points de dégat");
                             pdvMonstre -= attaqueMagique;
+                            HistoriqueAction.Add("Le joueur à attaquer : " + nomMob + " Pour " + attaqueMagique + " pts de dégats magique.");
                             break;
 
                         case "3":
                             Console.WriteLine("\n\nInventaire de " + nomHero);
+                            HistoriqueAction.Add("Le joueur à afficher sont inventaire");
                             break;
 
                         case "4":
-                            Console.WriteLine("\n\nCaractéristique de " + nomHero);
+                            Console.WriteLine("\n\nCaractéristique d' " + nomHero);
                             Console.Write("\nNom : " + nomHero + "\nClasse : " + classeHero
                                 + "\nPoint de Vie : " + pdvHero + "\nPoint d'Attaque : " + attaqueHero
                                 + "\nNiveau : " + levelHero + "\n");
+                            HistoriqueAction.Add("Le joueur à afficher ses Caractéristique");
                             break;
                         case "5":
                             Console.Clear();
-                            Console.WriteLine(titreFin);
+                            Console.WriteLine(titreFin + "\nActions du Joueur lors de la partie :\n");
+                            for (int i = 0; i < HistoriqueAction.Count; i++)
+                            {
+                                Console.WriteLine(HistoriqueAction[i] + " ");
+                            }
                             inGame = false;
+                            Environment.Exit(0);
                             break;
 
                         default:
@@ -208,12 +219,35 @@ namespace RPG_TxT
                 if (entry == "non")
                 {
                     Console.Clear();
-                    Console.WriteLine(titreFin);
+                    Console.WriteLine(titreFin+"\nActions du Joueur lors de la partie :\n");
+                    for (int i = 0; i < HistoriqueAction.Count; i++)
+                    {
+                        Console.WriteLine(HistoriqueAction[i]+" ");
+                    }
                     inGame = false;
+                    Environment.Exit(0);
                     break;
                 }
                 else
+                {
+                    HistoriqueAction.Add("Le joueur à tué : " + nomMob);
                     monstreTuer++;
+
+                    if(monstreTuer > 2 && inGame)
+                    {
+
+                        Console.Clear();
+                        Console.WriteLine("Bravo vous avez gagnez la partie !");
+                        Console.WriteLine(titreFin + "\nActions du Joueur lors de la partie :\n");
+                        for (int i = 0; i < HistoriqueAction.Count; i++)
+                        {
+                            Console.WriteLine(HistoriqueAction[i] + " ");
+                        }
+                        inGame = false;
+                        Environment.Exit(0);
+                        break;
+                    }
+                }
                     
             }
         }
