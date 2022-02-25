@@ -67,25 +67,34 @@ namespace RPG_TxT
             switch (userEntry) //   Class Statistic Attribution
             {
                 case "1":
+                    Health = 120;
+                    Attack = 50;
+                    Defense = 50;
                     break;
                 case "2":
+                    Health = 100;
+                    Attack = 70;
+                    Defense = 30;
                     break;
                 case "3":
+                    Health = 90;
+                    Attack = 60;
+                    Defense = 40;
                     break;
                 case "4":
+                    Health = 80;
+                    Attack = 80;
+                    Defense = 20;
                     break;
                 case "5":
+                    Health = 100;
+                    Attack = 40;
+                    Defense = 60;
                     break;
                 default:
+                    Console.WriteLine("Error in Class Stat Switch : CreatePlayer()");
                     break;
             }
-
-
-
-
-
-
-
         }
 
 
