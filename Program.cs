@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace RPG_TxT
 {
@@ -8,7 +9,12 @@ namespace RPG_TxT
     {
         static void Main(string[] args)
         {
-            //  Initialisation Fonction Random
+            //  Initialization of Ascii class to bring some magic to console
+            Ascii a = new Ascii();
+            string titre = a.GetTitre();
+            string titreFin = a.GetTitreFin();
+
+            //  Initialization of Random Fonction
             Random random = new Random();
 
             //  Initialisation du Dictionaire et de notre Liste
@@ -31,23 +37,21 @@ namespace RPG_TxT
             int pdvHero = 0, attaqueHero = 0, levelHero = 0, pdvMonstre = 0, attaqueMonstre, levelMonstre, monstreTuer = 0;
             string[] inventaireHero, inventaireMonstre;
             bool inGame = true;
-            string titre = @"                               __    ___  ___           _____       _____ 
-                              /__\  / _ \/ _ \         /__   \__  _/__   \
-                             / \// / /_)/ /_\/  _____    / /\/\ \/ / / /\/
-                            / _  \/ ___/ /_\\  |_____|  / /    >  < / /   
-                            \/ \_/\/   \____/           \/    /_/\_\\/  By Akinelo  
-                                              ";
-            string titreFin = @"
- ▄▄▄▄    ▒█████   ███▄    █  ███▄    █ ▓█████     ▄▄▄██▀▀▀▒█████   █    ██  ██▀███   ███▄    █ ▓█████ ▓█████ 
-▓█████▄ ▒██▒  ██▒ ██ ▀█   █  ██ ▀█   █ ▓█   ▀       ▒██  ▒██▒  ██▒ ██  ▓██▒▓██ ▒ ██▒ ██ ▀█   █ ▓█   ▀ ▓█   ▀ 
-▒██▒ ▄██▒██░  ██▒▓██  ▀█ ██▒▓██  ▀█ ██▒▒███         ░██  ▒██░  ██▒▓██  ▒██░▓██ ░▄█ ▒▓██  ▀█ ██▒▒███   ▒███   
-▒██░█▀  ▒██   ██░▓██▒  ▐▌██▒▓██▒  ▐▌██▒▒▓█  ▄    ▓██▄██▓ ▒██   ██░▓▓█  ░██░▒██▀▀█▄  ▓██▒  ▐▌██▒▒▓█  ▄ ▒▓█  ▄ 
-░▓█  ▀█▓░ ████▓▒░▒██░   ▓██░▒██░   ▓██░░▒████▒    ▓███▒  ░ ████▓▒░▒▒█████▓ ░██▓ ▒██▒▒██░   ▓██░░▒████▒░▒████▒
-░▒▓███▀▒░ ▒░▒░▒░ ░ ▒░   ▒ ▒ ░ ▒░   ▒ ▒ ░░ ▒░ ░    ▒▓▒▒░  ░ ▒░▒░▒░ ░▒▓▒ ▒ ▒ ░ ▒▓ ░▒▓░░ ▒░   ▒ ▒ ░░ ▒░ ░░░ ▒░ ░
-▒░▒   ░   ░ ▒ ▒░ ░ ░░   ░ ▒░░ ░░   ░ ▒░ ░ ░  ░    ▒ ░▒░    ░ ▒ ▒░ ░░▒░ ░ ░   ░▒ ░ ▒░░ ░░   ░ ▒░ ░ ░  ░ ░ ░  ░
- ░    ░ ░ ░ ░ ▒     ░   ░ ░    ░   ░ ░    ░       ░ ░ ░  ░ ░ ░ ▒   ░░░ ░ ░   ░░   ░    ░   ░ ░    ░      ░   
- ░          ░ ░           ░          ░    ░  ░    ░   ░      ░ ░     ░        ░              ░    ░  ░   ░  ░
-      ░                                                                                                      ";
+            //---------------------------------------------------
+            //Try Beg Animation
+            string beg1 = a.GetBeg1();
+            string beg2 = a.GetBeg2();
+            string beg3 = a.GetBeg3();
+            string beg4 = a.GetBeg4();
+            string[] animationBeg = {beg1, beg2, beg3, beg4 };
+
+            for (int i = 0; i < 4; i++)
+            {
+                Console.WriteLine(animationBeg[i]);
+                Thread.Sleep(1000);
+                Console.Clear();
+            }
+            //---------------------------------------------------
 
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (titre.Length / 2)) + "}", titre));
             Console.Write("Bienvenue, l'inconnu !\n\n\nJe suis Ergan, le mage du village.\nQuel est ton nom ?\n\nJe m'appelle : ");
