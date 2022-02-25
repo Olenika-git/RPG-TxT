@@ -48,10 +48,13 @@ namespace RPG_TxT
             for (int i = 0; i < 4; i++)
             {
                 Console.WriteLine(animationBeg[i]);
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 Console.Clear();
             }
             //---------------------------------------------------
+            Player player = new Player();
+            player.CreatePlayer();
+            Console.WriteLine("TEEEEEEST DE LOBJET"+player.Name + player.Health);
 
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (titre.Length / 2)) + "}", titre));
             Console.Write("Bienvenue, l'inconnu !\n\n\nJe suis Ergan, le mage du village.\nQuel est ton nom ?\n\nJe m'appelle : ");
